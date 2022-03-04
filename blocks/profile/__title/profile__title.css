@@ -1,5 +1,5 @@
 .profile__title {
-    margin: 22px 18px 0 0;
+    margin: 0;
     color: #fff;
     font-size: 42px;
     line-height: 1.1;
@@ -7,9 +7,8 @@
     outline: solid red 1px;
 }
 
-@media screen and (max-width: 735px) {
+@media screen and (max-width: 655px) {
     .profile__title  {
-        margin: 26px 0 0;
         font-size: 27px;
         line-height: 1.2;
     }

@@ -1,7 +1,18 @@
 .profile__add-button {
+    width: 150px;
+    height: 50px;
+    background: #000 url("../../../images/add_button.png") center no-repeat;
+    border: #fff 2px solid;
     padding: 0;
-    background: #000;
-    border: none;
+    grid-area: add_button;
     justify-self: end;
+    align-self: center;
 }
 
+@media screen and (max-width: 655px) {
+    .profile__add-button  {
+        width: 282px;
+        height: 50px;
+        background-image: url("../../../images/add_button_320.png");
+    }
+}

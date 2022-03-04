@@ -1,12 +1,13 @@
 .profile__info {
-    align-self: start;
+    grid-area: title;
     display: flex;
-    flex-wrap: wrap;
+    margin-top: 22px;
+    margin-left: 30px;
 }
 
-@media screen and (max-width: 735px) {
+@media screen and (max-width: 655px) {
     .profile__info  {
-        position: relative;
-        justify-content: center;
+        margin-top: 26px;
+        margin-left: 30px;
     }
 }
