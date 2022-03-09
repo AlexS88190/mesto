@@ -8,12 +8,19 @@
     grid-template-areas:
     "avatar title add_button"
     "avatar subtitle add_button";
-    outline: solid 1px red;
 }
 
-@media screen and (max-width: 655px) {
+@media screen and (max-width: 900px) {
     .profile  {
-        padding-top: 42px;
+        padding-left: 27px;
+        padding-right: 27px;
+    }
+}
+
+
+@media screen and (max-width: 685px) {
+    .profile  {
+        padding: 42px 0 0;
         max-width: 282px;
         grid-template-columns: 1fr;
         grid-template-rows: none;

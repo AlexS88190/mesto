@@ -4,10 +4,9 @@
     font-size: 42px;
     line-height: 1.1;
     font-weight: 500;
-    outline: solid red 1px;
 }
 
-@media screen and (max-width: 655px) {
+@media screen and (max-width: 685px) {
     .profile__title  {
         font-size: 27px;
         line-height: 1.2;

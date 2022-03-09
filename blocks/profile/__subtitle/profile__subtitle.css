@@ -4,11 +4,10 @@
     color: #fff;
     font-size: 18px;
     line-height: 1.2;
-    outline: solid red 1px;
     grid-area: subtitle;
 }
 
-@media screen and (max-width: 655px) {
+@media screen and (max-width: 685px) {
     .profile__subtitle  {
         margin: 14px 0 36px;
         font-size: 14px;

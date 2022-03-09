@@ -6,6 +6,13 @@
 
 @media screen and (max-width: 900px) {
     .header  {
-        padding: 28px 0 0;
+        padding: 28px 27px 0;
+    }
+}
+
+@media screen and (max-width: 685px) {
+    .header  {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
