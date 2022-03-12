@@ -1,0 +1,22 @@
+.popup__form-name {
+    margin-bottom: 30px;
+    padding: 0 0 4px;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.2;
+    box-sizing: border-box;
+    display: block;
+}
+
+.popup__form-name:focus {
+    outline-color: limegreen;
+}
+
+@media screen and (max-width: 685px) {
+    .popup__name  {
+        margin-bottom: 13px;
+
+    }
+}
