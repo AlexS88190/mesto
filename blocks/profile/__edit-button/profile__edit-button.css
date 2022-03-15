@@ -4,7 +4,7 @@
     background: #000 url("../../../images/edit_button.png") center no-repeat;
     border: #fff 1px solid;
     padding: 0;
-    margin-left: 18px;
+    margin-left: 24px;
     align-self: end;
     transition: opacity 0.3s ease;
 }
@@ -17,6 +17,7 @@
 @media screen and (max-width: 705px) {
     .profile__edit-button {
         margin-left: 10px;
+        margin-bottom: 7px;
         width: 18px;
         height: 18px;
         background-image: url("../../../images/edit_button_320.png");
