@@ -1,13 +1,13 @@
 .popup__close {
-    background-image: url("../../../images/close_button.png");
+    background-image: url("../../../images/сlose_button.svg");
     border: none;
     width: 32px;
     height: 32px;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
     background-size: cover;
-    top: -40px;
-    right: -40px;
+    top: 155px;
+    right: 385px;
     transition: opacity 0.5s ease;
 }
 
@@ -20,7 +20,7 @@
     .popup__close  {
         width: 20px;
         height: 20px;
-        top: -37px;
-        right: 0;
+        top: 87px;
+        right: 19px;
     }
 }
