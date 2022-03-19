@@ -1,4 +1,4 @@
-.elements__like {
+.elements__like-button {
     margin: 4px 6px 0 0;
     padding: 0;
     background-image: url("../../../images/like_button.svg");
@@ -10,7 +10,7 @@
     transition: opacity 0.5s ease;
 }
 
-.elements__like:hover {
+.elements__like-button:hover {
     opacity: 0.5;
     cursor: pointer;
 }
