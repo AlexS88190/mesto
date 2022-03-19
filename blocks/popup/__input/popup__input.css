@@ -1,6 +1,6 @@
-.popup__form-name {
+.popup__input {
     margin-bottom: 30px;
-    padding: 0 0 4px;
+    padding: 0 0 9px;
     border: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     width: 100%;
@@ -10,13 +10,10 @@
     display: block;
 }
 
-.popup__form-name:focus {
-    outline-color: limegreen;
+.popup__input:last-of-type {
+    margin: 0;
 }
 
-@media screen and (max-width: 685px) {
-    .popup__name  {
-        margin-bottom: 13px;
-
-    }
+.popup__input:focus {
+    outline-color: limegreen;
 }
