@@ -1,5 +1,4 @@
 .popup__container {
-    margin: -40px auto 0;
     padding: 35px 36px 37px;
     box-sizing: border-box;
     width: 430px;
@@ -10,7 +9,6 @@
 
 @media screen and (max-width: 685px) {
     .popup__container  {
-        margin-top: -1px;
         padding: 25px 22px;
         width: 282px;
     }
