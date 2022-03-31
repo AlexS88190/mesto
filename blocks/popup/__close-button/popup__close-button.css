@@ -8,8 +8,8 @@
     background-size: 32px;
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    top: calc(50% - 206px);
-    right: calc(50% - 255px);
+    top: -40px;
+    right: -40px;
     transition: opacity 0.5s ease;
 }
 
@@ -23,7 +23,7 @@
         width: 20px;
         height: 20px;
         background-size: 20px;
-        top: calc(50% - 198px);
-        right: calc(50% - 141px);
+        top: -36px;
+        right: 0;
     }
 }

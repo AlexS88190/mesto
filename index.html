@@ -28,6 +28,7 @@
           <ul class="elements__list">
             <li class="elements__item">
               <img src="images/karachaevsk.jpg" alt="карачаевск" class="elements__image">
+              <button class="elements__trash"></button>
               <div class="elements__content">
                 <h2 class="elements__title">Карачаевск</h2>
                 <button class="elements__like-button" type="button" aria-label="нравится"></button>
@@ -35,6 +36,7 @@
             </li>
             <li class="elements__item">
               <img src="images/elbrus.jpg" alt="эльбрус" class="elements__image">
+              <button class="elements__trash"></button>
               <div class="elements__content">
                 <h2 class="elements__title">Гора Эльбрус</h2>
                 <button class="elements__like-button" type="button" aria-label="нравится"></button>
@@ -42,6 +44,7 @@
             </li>
             <li class="elements__item">
               <img src="images/dombai.jpg" alt="домбай" class="elements__image">
+              <button class="elements__trash"></button>
               <div class="elements__content">
                 <h2 class="elements__title">Домбай</h2>
                 <button class="elements__like-button" type="button" aria-label="нравится"></button>
@@ -49,6 +52,7 @@
             </li>
             <li class="elements__item">
               <img src="images/elbrus.jpg" alt="эльбрус" class="elements__image">
+              <button class="elements__trash"></button>
               <div class="elements__content">
                 <h2 class="elements__title">Гора Эльбрус</h2>
                 <button class="elements__like-button" type="button" aria-label="нравится"></button>
@@ -56,6 +60,7 @@
             </li>
             <li class="elements__item">
               <img src="images/dombai.jpg" alt="домбай" class="elements__image">
+              <button class="elements__trash"></button>
               <div class="elements__content">
                 <h2 class="elements__title">Домбай</h2>
                 <button class="elements__like-button" type="button" aria-label="нравится"></button>
@@ -63,6 +68,7 @@
             </li>
             <li class="elements__item">
               <img src="images/karachaevsk.jpg" alt="карачаево-черкессия" class="elements__image">
+              <button class="elements__trash"></button>
               <div class="elements__content">
                 <h2 class="elements__title">Карачаево-Черкессия</h2>
                 <button class="elements__like-button" type="button" aria-label="нравится"></button>
@@ -75,7 +81,7 @@
         <p class="footer__copyright">&copy; 2022 Александр Карев</p>
       </footer>
     </div>
-    <div class="popup">
+    <div class="popup popup_type_profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -86,7 +92,7 @@
         </form>
       </div>
     </div>
-    <div class="popup">
+    <div class="popup popup_type_place">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
@@ -97,8 +103,18 @@
         </form>
       </div>
     </div>
+    <div class="popup popup_type_zoom">
+      <figure class="popup__zoom-container">
+        <button class="popup__close-button" type="button" aria-label="закрыть"></button>
+        <img src="https://images.unsplash.com/photo-1487553333251-6c8e26d3dc2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80" alt="эльбрус" class="popup__image">
+        <figcaption class="popup__zoom-title">Новое место</figcaption>
+      </figure>
+    </div>
 
 
-   <script src="scripts/script.js"></script>
+
+
+
+    <script src="scripts/script.js"></script>
   </body>
 </html>
