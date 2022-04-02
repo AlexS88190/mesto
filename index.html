@@ -26,54 +26,7 @@
         </section>
         <section class="elements">
           <ul class="elements__list">
-           <li class="elements__item">
-              <img src="images/karachaevsk.jpg" alt="карачаевск" class="elements__image">
-              <button class="elements__trash"></button>
-              <div class="elements__content">
-                <h2 class="elements__title">Карачаевск</h2>
-                <button class="elements__like-button" type="button" aria-label="нравится"></button>
-              </div>
-            </li>
-            <li class="elements__item">
-              <img src="images/elbrus.jpg" alt="эльбрус" class="elements__image">
-              <button class="elements__trash"></button>
-              <div class="elements__content">
-                <h2 class="elements__title">Гора Эльбрус</h2>
-                <button class="elements__like-button" type="button" aria-label="нравится"></button>
-              </div>
-            </li>
-            <li class="elements__item">
-              <img src="images/dombai.jpg" alt="домбай" class="elements__image">
-              <button class="elements__trash"></button>
-              <div class="elements__content">
-                <h2 class="elements__title">Домбай</h2>
-                <button class="elements__like-button" type="button" aria-label="нравится"></button>
-              </div>
-            </li>
-            <li class="elements__item">
-              <img src="images/elbrus.jpg" alt="эльбрус" class="elements__image">
-              <button class="elements__trash"></button>
-              <div class="elements__content">
-                <h2 class="elements__title">Гора Эльбрус</h2>
-                <button class="elements__like-button" type="button" aria-label="нравится"></button>
-              </div>
-            </li>
-            <li class="elements__item">
-              <img src="images/dombai.jpg" alt="домбай" class="elements__image">
-              <button class="elements__trash"></button>
-              <div class="elements__content">
-                <h2 class="elements__title">Домбай</h2>
-                <button class="elements__like-button" type="button" aria-label="нравится"></button>
-              </div>
-            </li>
-            <li class="elements__item">
-              <img src="images/karachaevsk.jpg" alt="карачаево-черкессия" class="elements__image">
-              <button class="elements__trash"></button>
-              <div class="elements__content">
-                <h2 class="elements__title">Карачаево-Черкессия</h2>
-                <button class="elements__like-button" type="button" aria-label="нравится"></button>
-              </div>
-            </li>
+
           </ul>
         </section>
       </main>
@@ -97,8 +50,10 @@
         <button class="popup__close-button popup__close-button_place" type="button" aria-label="закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form popup__form_place" name="place">
-          <input class="popup__input popup__input_type_place" type="text" placeholder="Название" name="name_place" required>
-          <input class="popup__input  popup__input_type_link" type="text" placeholder="Ссылка на картинку" name="link_place" required>
+          <input class="popup__input popup__input_type_place" type="text" placeholder="Название" name="name_place"
+                 required>
+          <input class="popup__input  popup__input_type_link" type="text" placeholder="Ссылка на картинку"
+                 name="link_place" required>
           <button class="popup__save-button" type="submit">Создать</button>
         </form>
       </div>
@@ -106,22 +61,20 @@
     <div class="popup popup_type_zoom">
       <figure class="popup__zoom-container">
         <button class="popup__close-button popup__close-button_zoom" type="button" aria-label="закрыть"></button>
-        <img src="https://images.unsplash.com/photo-1487553333251-6c8e26d3dc2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80" alt="эльбрус" class="popup__image">
-        <figcaption class="popup__zoom-title">Новое место</figcaption>
+        <img src="#" alt="#" class="popup__image">
+        <figcaption class="popup__zoom-title"></figcaption>
       </figure>
     </div>
-
     <template class="card-template">
-        <li class="elements__item">
-          <img class="elements__image" src="#" alt="#">
-          <button class="elements__trash"></button>
-          <div class="elements__content">
-            <h2 class="elements__title"></h2>
-            <button class="elements__like-button" type="button" aria-label="нравится"></button>
-          </div>
-        </li>
+      <li class="elements__item">
+        <img class="elements__image" src="#" alt="#">
+        <button class="elements__trash"></button>
+        <div class="elements__content">
+          <h2 class="elements__title"></h2>
+          <button class="elements__like-button" type="button" aria-label="нравится"></button>
+        </div>
+      </li>
     </template>
-
     <script src="scripts/script.js"></script>
   </body>
 </html>
