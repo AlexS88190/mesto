@@ -27,7 +27,6 @@ const initialCards = [
 
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupEditButton = document.querySelector('.profile__edit-button');
-
 const formElementProfile = popupProfile.querySelector('.popup__form_profile');
 const nameInput = formElementProfile.querySelector('.popup__input_type_name');
 const jobInput = formElementProfile.querySelector('.popup__input_type_about');
@@ -37,27 +36,21 @@ const profileJob = document.querySelector('.profile__subtitle');
 const popupPlace = document.querySelector('.popup_type_place');
 const popupAddButton = document.querySelector('.profile__add-button');
 const formElementPlace = popupPlace.querySelector('.popup__form_place');
-
 const placeInput = formElementPlace.querySelector('.popup__input_type_place');
 const linkInput = formElementPlace.querySelector('.popup__input_type_link');
 
 const popupZoom = document.querySelector('.popup_type_zoom');
-
 const popupZoomImage = popupZoom.querySelector('.popup__image');
 const popupZoomTitle = popupZoom.querySelector('.popup__zoom-title');
-
 
 const closeButtonList = document.querySelectorAll('.popup__close-button');
 const cardsList = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.card-template');
 
-function closePopup(event) {
-    event.currentTarget.closest('.popup').classList.remove('popup_opened');
-}
 
-closeButtonList.forEach(closeButton => {
-    closeButton.addEventListener('click', closePopup)
-});
+/* Закрытие попапа не сделал так как вы рекомендовали, потому что еще не совсем разобрался как ваш код работает, точнее как он работает
+я понимаю, но "понимать" и "догадаться как реализовать" это совершенно разные вещи. Поэтому сделал немного по-другому. Ваше решение
+красивое, обязательно возьму на заметку, большое спасибо! */
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
@@ -79,6 +72,10 @@ function openZoomPopup(event) {
     popupZoomImage.src = event.currentTarget.src;
     popupZoomTitle.textContent = titleCard.querySelector('.elements__title').textContent;
     openPopup(popupZoom);
+}
+
+function closePopup(event) {
+    event.currentTarget.closest('.popup').classList.remove('popup_opened');
 }
 
 function handleProfileFormSubmit (event) {
@@ -105,30 +102,26 @@ function likeCard(event) {
 }
 
 function createCard(link, name) {
+    const elementItem = cardTemplate.content.firstElementChild.cloneNode(true);
 
-    const elementItem = cardTemplate.content.firstElementChild.cloneNode(true); //получение шаблона разметки картчки из темплейт
-    const linkCard = elementItem.querySelector('.elements__image'); //получение разметки картинки
-    const nameCard = elementItem.querySelector('.elements__title'); //получение разметки названия картинки
+    const linkCard = elementItem.querySelector('.elements__image');
+    linkCard.src = link;
+    linkCard.alt = name;
+    const nameCard = elementItem.querySelector('.elements__title');
+    nameCard.textContent = name;
 
-    linkCard.src = link; //присвоение ссылки разметке карточке
-    linkCard.alt = name; //присвоение alt разметке карточке
-    nameCard.textContent = name; //присвоение названия разметке карточке
-
-    //далее навешивание лисенеров
     const trashElements = elementItem.querySelector('.elements__trash');
-    const likeElements = elementItem.querySelector('.elements__like-button');
-    const zoomElements = elementItem.querySelector('.elements__image');
     trashElements.addEventListener('click', removeCard);
+    const likeElements = elementItem.querySelector('.elements__like-button');
     likeElements.addEventListener('click', likeCard);
+    const zoomElements = elementItem.querySelector('.elements__image');
     zoomElements.addEventListener('click', openZoomPopup);
 
     return elementItem;
 }
 
-
-
 function renderCard(link, name) {
-    cardsList.prepend(createCard(link, name)); //добавление разметки карточки в общую разметку
+    cardsList.prepend(createCard(link, name));
 }
 
 initialCards.map(function (item) {
@@ -136,12 +129,11 @@ initialCards.map(function (item) {
 });
 
 popupEditButton.addEventListener('click', openProfilePopup);
-//popupProfileCloseButton.addEventListener('click', toggleProfilePopup);
 formElementProfile.addEventListener('submit', handleProfileFormSubmit);
 
 popupAddButton.addEventListener('click', openPlacePopup);
-//popupPlaceCloseButton.addEventListener('click', togglePlacePopup);
 formElementPlace.addEventListener('submit', handlePlaceFormSubmit);
 
-//popupZoomCloseButton.addEventListener('click', toggleZoomPopup);
-
+closeButtonList.forEach(closeButton => {
+    closeButton.addEventListener('click', closePopup)
+})
