@@ -48,10 +48,6 @@ const closeButtonList = document.querySelectorAll('.popup__close-button');
 const cardsList = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.card-template');
 
-/* Закрытие попапа не сделал так как вы рекомендовали, потому что еще не совсем разобрался как ваш код работает, точнее как он работает
-я понимаю, но "понимать" и "догадаться как реализовать" это совершенно разные вещи. Поэтому сделал немного по-другому. Ваше решение
-красивое, обязательно возьму на заметку, большое спасибо! */
-
 function openPopup(popup) {
     popup.classList.add('popup_opened');
 }
@@ -70,6 +66,7 @@ function openPlacePopup(event) {
 function openZoomPopup(event) {
     const titleCard = event.currentTarget.closest('.elements__item');
     popupZoomImage.src = event.currentTarget.src;
+    popupZoomImage.alt = event.currentTarget.alt
     popupZoomTitle.textContent = titleCard.querySelector('.elements__title').textContent;
     openPopup(popupZoom);
 }
