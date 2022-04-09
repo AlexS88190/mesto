@@ -39,6 +39,7 @@ const popupAddButton = document.querySelector('.profile__add-button');
 const formElementPlace = popupPlace.querySelector('.popup__form_place');
 const placeInput = formElementPlace.querySelector('.popup__input_type_place');
 const linkInput = formElementPlace.querySelector('.popup__input_type_link');
+const createButton = formElementPlace.querySelector('.popup__save-button');
 
 const popupZoom = document.querySelector('.popup_type_zoom');
 const popupZoomImage = popupZoom.querySelector('.popup__image');
@@ -93,6 +94,8 @@ function handlePlaceFormSubmit(event) {
     const nameCardInput = placeInput.value;
     const linkCardInput = linkInput.value;
     renderCard(linkCardInput, nameCardInput);
+    createButton.classList.add('popup__save-button_disabled');
+    createButton.setAttribute('disabled', 'disabled');
     closePopup(event);
 }
 
@@ -144,6 +147,7 @@ popupList.forEach(popup => {
 document.addEventListener('keydown', closePopup);
 
 
+/* ------------------ Validation ---------------------*/
 
 
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -168,14 +172,30 @@ const isValid = (formElement, inputElement) => {
     }
 }
 
-const setEventListeners = (formElement) => {
+const toggleButtonState = (inputList, buttonElement) => {
+    if (hasInvalidInput(inputList)) {
+        buttonElement.classList.add('popup__save-button_disabled');
+        buttonElement.setAttribute('disabled', 'disabled');
+    } else {
+        buttonElement.classList.remove('popup__save-button_disabled');
+        buttonElement.removeAttribute('disabled');
+    }
+}
 
+const hasInvalidInput = (inputList) => {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+    });
+}
+
+const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-    //const buttonElement = formElement.querySelector('.popup__save-button');
+    const buttonElement = formElement.querySelector('.popup__save-button');
     inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', () => {
-            isValid(formElement, inputElement);
-        });
+      inputElement.addEventListener('input', () => {
+          isValid(formElement, inputElement);
+          toggleButtonState(inputList, buttonElement);
+      });
     });
 }
 
