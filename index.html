@@ -36,9 +36,15 @@
       <div class="popup__container">
         <button class="popup__close-button popup__close-button_profile" type="button" aria-label="закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form popup__form_profile" name="profile">
-          <input class="popup__input popup__input_type_name" type="text" placeholder="имя" name="name" required>
-          <input class="popup__input  popup__input_type_about" type="text" placeholder="о себе" name="about" required>
+
+        <form class="popup__form popup__form_profile" name="profile" novalidate>
+
+          <input id="name-input" class="popup__input popup__input_type_name" type="text" placeholder="имя" name="name" minlength="2" maxlength="40" required>
+          <span class="name-input-error popup__input-error"></span>
+
+          <input id="about-input" class="popup__input  popup__input_type_about" type="text" placeholder="о себе" name="about" minlength="2" maxlength="200" required>
+          <span class="about-input-error popup__input-error"></span>
+
           <button class="popup__save-button" type="submit">Сохранить</button>
         </form>
       </div>
@@ -47,9 +53,12 @@
       <div class="popup__container">
         <button class="popup__close-button popup__close-button_place" type="button" aria-label="закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form popup__form_place" name="place">
+
+        <form class="popup__form popup__form_place" name="place" novalidate>
+
           <input class="popup__input popup__input_type_place" type="text" placeholder="Название" name="name_place"
                  required>
+
           <input class="popup__input  popup__input_type_link" type="text" placeholder="Ссылка на картинку"
                  name="link_place" required>
           <button class="popup__save-button" type="submit">Создать</button>
@@ -74,5 +83,6 @@
       </li>
     </template>
     <script src="scripts/script.js"></script>
+    <script src="scripts/validate.js"></script>
   </body>
 </html>
