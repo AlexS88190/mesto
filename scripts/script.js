@@ -24,6 +24,7 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+const popupList = document.querySelectorAll('.popup');
 
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupEditButton = document.querySelector('.profile__edit-button');
@@ -42,8 +43,6 @@ const linkInput = formElementPlace.querySelector('.popup__input_type_link');
 const popupZoom = document.querySelector('.popup_type_zoom');
 const popupZoomImage = popupZoom.querySelector('.popup__image');
 const popupZoomTitle = popupZoom.querySelector('.popup__zoom-title');
-
-const closeButtonList = document.querySelectorAll('.popup__close-button');
 
 const cardsList = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.card-template');
@@ -72,7 +71,14 @@ function openZoomPopup(event) {
 }
 
 function closePopup(event) {
-    event.currentTarget.closest('.popup').classList.remove('popup_opened');
+    if (event.key === 'Escape') {
+        popupList.forEach(popup => {
+            popup.classList.remove('popup_opened');
+        })
+    }
+    else if (event.target.classList.contains('popup__close-button') || event.target.classList.contains('popup') || event.type === 'submit') {
+        event.currentTarget.closest('.popup').classList.remove('popup_opened');
+    }
 }
 
 function handleProfileFormSubmit (event) {
@@ -131,6 +137,9 @@ formElementProfile.addEventListener('submit', handleProfileFormSubmit);
 popupAddButton.addEventListener('click', openPlacePopup);
 formElementPlace.addEventListener('submit', handlePlaceFormSubmit);
 
-closeButtonList.forEach(closeButton => {
-    closeButton.addEventListener('click', closePopup)
-})
+popupList.forEach(popup => {
+    popup.addEventListener('click', closePopup);
+});
+
+document.addEventListener('keydown', closePopup);
+
