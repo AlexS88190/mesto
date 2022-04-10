@@ -1,4 +1,5 @@
 .popup__input {
+    position: relative;
     margin-top: 30px;
     padding: 0 0 9px;
     border: 0;
@@ -14,6 +15,6 @@
     margin: 0;
 }
 
-.popup__input:focus {
+/*.popup__input:focus {
     outline-color: limegreen;
-}
+} */

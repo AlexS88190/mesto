@@ -3,3 +3,7 @@
     color: rgba(0,0,0,0.2);
     outline: 1px solid;
 }
+
+.popup__save-button_disabled:hover {
+    cursor: auto;
+}
