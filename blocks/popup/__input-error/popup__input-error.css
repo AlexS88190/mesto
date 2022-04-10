@@ -1,4 +1,5 @@
 .popup__input-error {
+    margin-top: 5px;
     display: none;
     position: absolute;
     font-weight: 400;
