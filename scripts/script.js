@@ -39,7 +39,7 @@ const popupAddButton = document.querySelector('.profile__add-button');
 const formElementPlace = popupPlace.querySelector('.popup__form_place');
 const placeInput = formElementPlace.querySelector('.popup__input_type_place');
 const linkInput = formElementPlace.querySelector('.popup__input_type_link');
-const createButton = formElementPlace.querySelector('.popup__save-button');
+//const createButton = formElementPlace.querySelector('.popup__save-button');
 
 const popupZoom = document.querySelector('.popup_type_zoom');
 const popupZoomImage = popupZoom.querySelector('.popup__image');
@@ -50,16 +50,28 @@ const cardTemplate = document.querySelector('.card-template');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    const formElement = popup.querySelector('.popup__form');
+    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+    const buttonElement = formElement.querySelector('.popup__save-button');
+
+    inputList.forEach(inputElement => {
+        hideInputError(formElement, inputElement);
+    })
+    toggleButtonState(inputList, buttonElement);
 }
 
 function openProfilePopup(event) {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
+   /* createButton.classList.remove('popup__save-button_disabled');
+    createButton.removeAttribute('disabled', 'disabled'); */
     openPopup(popupProfile);
 }
 
 function openPlacePopup(event) {
     formElementPlace.reset();
+   /* createButton.classList.add('popup__save-button_disabled');
+    createButton.setAttribute('disabled', 'disabled');*/
     openPopup(popupPlace);
 }
 
@@ -94,8 +106,8 @@ function handlePlaceFormSubmit(event) {
     const nameCardInput = placeInput.value;
     const linkCardInput = linkInput.value;
     renderCard(linkCardInput, nameCardInput);
-    createButton.classList.add('popup__save-button_disabled');
-    createButton.setAttribute('disabled', 'disabled');
+    /* createButton.classList.add('popup__save-button_disabled');
+    createButton.setAttribute('disabled', 'disabled'); */
     closePopup(event);
 }
 
@@ -164,12 +176,16 @@ const hideInputError = (formElement, inputElement) => {
     errorElement.textContent = '';
 }
 
-const isValid = (formElement, inputElement) => {
-    if (!inputElement.validity.valid) {
+const updateInputErrors = (formElement, inputElement) => {
+    if (!isInputValid(inputElement)) {
         showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
         hideInputError(formElement, inputElement);
     }
+}
+
+const isInputValid = (inputElement) => {
+    return inputElement.validity.valid
 }
 
 const toggleButtonState = (inputList, buttonElement) => {
@@ -184,16 +200,17 @@ const toggleButtonState = (inputList, buttonElement) => {
 
 const hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
-        return !inputElement.validity.valid;
+        return !isInputValid(inputElement);
     });
 }
 
 const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
     const buttonElement = formElement.querySelector('.popup__save-button');
+
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-          isValid(formElement, inputElement);
+          updateInputErrors(formElement, inputElement);
           toggleButtonState(inputList, buttonElement);
       });
     });
