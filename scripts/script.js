@@ -56,6 +56,64 @@ const selectors = {
     errorClass: 'popup__input-error_active'
 }
 
+class Card {
+    constructor(data, cardSelector) {
+        this._title = data.title;
+        this._link = data.link;
+        this._cardSelector = cardSelector;
+    }
+
+    _getTemplate() {
+        const cardElement = document
+            .querySelector(this._cardSelector)
+            .content
+            .querySelector('.elements__item')
+            .cloneNode(true);
+        return cardElement
+    }
+
+    generateCard() {
+        const cardElement = this._getTemplate();
+        const linkCard = cardElement.querySelector('.elements__image');
+        linkCard.src = this._link;
+        linkCard.alt = this._title;
+        const nameCard = cardElement.querySelector('.elements__title');
+        nameCard.textContent = this._title;
+        const trashButton = cardElement.querySelector('.elements__trash');
+        trashButton.addEventListener('click', removeCard);
+        const likeButton = cardElement.querySelector('.elements__like-button');
+        likeButton.addEventListener('click', likeCard);
+        linkCard.addEventListener('click', openZoomPopup);
+      return cardElement
+    }
+}
+
+function renderCard(link, name) {
+    const data = {title: name, link: link}
+    const cardSelector = '.card-template';
+    const card = new Card(data, cardSelector);
+    const generatedCard = card.generateCard();
+    cardsList.prepend(generatedCard);
+}
+
+
+
+
+// const card1 = new Card({
+//     title: 'Интерлакен',
+//     link: 'https://cantina-caverna.ch/wp-content/uploads/2017/08/visit_interlaken_lungern_view.jpg'
+// }, '.card-template')
+//
+// console.log(card1._getTemplate())
+// console.log(card1.generateCard())
+
+
+
+
+
+
+
+
 function openPopup(popup) {
     document.addEventListener('keydown', closeByEsc);
     popup.classList.add('popup_opened');
@@ -152,9 +210,9 @@ function createCard(link, name) {
     return elementItem;
 }
 
-function renderCard(link, name) {
-    cardsList.prepend(createCard(link, name));
-}
+// function renderCard(link, name) {
+//     cardsList.prepend(createCard(link, name));
+// }
 
 initialCards.map(function (item) {
     renderCard(item.link, item.name);
