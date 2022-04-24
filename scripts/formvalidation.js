@@ -72,3 +72,5 @@ const enableValidation = (selectors) => {
         formValidationActivator.enableValidation();
     });
 }
+
+export { FormValidationActivator, updateInputErrors, hideInputError, showInputError, toggleButtonState, isInputValid, hasInvalidInput, enableValidation }
