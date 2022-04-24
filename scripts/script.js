@@ -118,24 +118,6 @@ function renderCard(link, name) {
     cardsList.prepend(generatedCard);
 }
 
-
-
-
-// const card1 = new Card({
-//     title: 'Интерлакен',
-//     link: 'https://cantina-caverna.ch/wp-content/uploads/2017/08/visit_interlaken_lungern_view.jpg'
-// }, '.card-template')
-//
-// console.log(card1._getTemplate())
-// console.log(card1.generateCard())
-
-
-
-
-
-
-
-
 function openPopup(popup) {
     document.addEventListener('keydown', closeByEsc);
     popup.classList.add('popup_opened');
@@ -162,8 +144,6 @@ function openPlacePopup(event) {
     toggleButtonState(inputList, buttonElement, selectors);
     openPopup(popupPlace);
 }
-
-
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
@@ -201,24 +181,24 @@ function handlePlaceFormSubmit(event) {
 
 
 
-function createCard(link, name) {
-    const elementItem = cardTemplate.content.firstElementChild.cloneNode(true);
-
-    const linkCard = elementItem.querySelector('.elements__image');
-    linkCard.src = link;
-    linkCard.alt = name;
-    const nameCard = elementItem.querySelector('.elements__title');
-    nameCard.textContent = name;
-
-    const trashElements = elementItem.querySelector('.elements__trash');
-    trashElements.addEventListener('click', removeCard);
-    const likeElements = elementItem.querySelector('.elements__like-button');
-    likeElements.addEventListener('click', likeCard);
-    const zoomElements = elementItem.querySelector('.elements__image');
-    zoomElements.addEventListener('click', openZoomPopup);
-
-    return elementItem;
-}
+// function createCard(link, name) {
+//     const elementItem = cardTemplate.content.firstElementChild.cloneNode(true);
+//
+//     const linkCard = elementItem.querySelector('.elements__image');
+//     linkCard.src = link;
+//     linkCard.alt = name;
+//     const nameCard = elementItem.querySelector('.elements__title');
+//     nameCard.textContent = name;
+//
+//     const trashElements = elementItem.querySelector('.elements__trash');
+//     trashElements.addEventListener('click', removeCard);
+//     const likeElements = elementItem.querySelector('.elements__like-button');
+//     likeElements.addEventListener('click', likeCard);
+//     const zoomElements = elementItem.querySelector('.elements__image');
+//     zoomElements.addEventListener('click', openZoomPopup);
+//
+//     return elementItem;
+// }
 
 // function renderCard(link, name) {
 //     cardsList.prepend(createCard(link, name));
