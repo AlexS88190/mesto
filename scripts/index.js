@@ -64,18 +64,13 @@ const popupList = document.querySelectorAll('.popup');
 function openProfilePopup(event) {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
-    const formElement = popupProfile.querySelector(selectors.formSelector);
-    const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
 
-    inputList.forEach(inputElement => {
-        formProfileValidator._hideInputError(inputElement);
-    })
-    formProfileValidator._toggleButtonState();
+    formProfileValidator.resetValidation();
     openPopup(popupProfile);
 }
 
 function openPlacePopup(event) {
-    formPlaceValidator._toggleButtonState();
+    formPlaceValidator.toggleButtonState();
     openPopup(popupPlace);
 }
 
@@ -84,13 +79,6 @@ function openZoomPopup(text, link) {
     popupZoomImage.alt = text;
     popupZoomTitle.textContent = text;
     openPopup(popupZoom);
-}
-
-function closeByEsc(event) {
-    if (event.key === 'Escape') {
-        const openedPopup = document.querySelector('.popup_opened');
-        closePopup(openedPopup);
-    }
 }
 
 function handleClosePopup(event) {
@@ -159,5 +147,3 @@ function main() {
 }
 
 main();
-
-export { closeByEsc }
