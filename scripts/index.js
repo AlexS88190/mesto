@@ -6,6 +6,8 @@ import {
 } from './utils.js'
 
 import FormValidator from "./formValidator.js";
+import Section from "./components/section.js";
+import UserInfo from "./userInfo.js";
 
 const initialCards = [
     {
@@ -33,13 +35,13 @@ const initialCards = [
         link: 'https://www.orangesmile.com/common/img_cities_original/chamonix-mont-blanc--1418045-2.jpg'
     }
 ];
+const section = new Section({ items: initialCards, renderer: createCard }, '.elements__list');
+const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupPlace = document.querySelector('.popup_type_place');
 const formElementProfile = popupProfile.querySelector('.popup__form_profile');
 const nameInput = formElementProfile.querySelector('.popup__input_type_name');
 const jobInput = formElementProfile.querySelector('.popup__input_type_about');
-const profileName = document.querySelector('.profile__title');
-const profileJob = document.querySelector('.profile__subtitle');
 const formElementPlace = popupPlace.querySelector('.popup__form_place');
 const popupZoom = document.querySelector('.popup_type_zoom');
 const popupZoomImage = popupZoom.querySelector('.popup__image');
@@ -54,7 +56,6 @@ const selectors = {
     errorClass: 'popup__input-error_active'
 }
 
-const cardsList = document.querySelector('.elements__list');
 const placeInput = formElementPlace.querySelector('.popup__input_type_place');
 const linkInput = formElementPlace.querySelector('.popup__input_type_link');
 const popupEditButton = document.querySelector('.profile__edit-button');
@@ -62,8 +63,9 @@ const popupAddButton = document.querySelector('.profile__add-button');
 const popupList = document.querySelectorAll('.popup');
 
 function openProfilePopup(event) {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
+    const userInfoData = userInfo.getUserInfo();
+    nameInput.value = userInfoData.profileTitle;
+    jobInput.value = userInfoData.profileSubTitle;
 
     formProfileValidator.resetValidation();
     openPopup(popupProfile);
@@ -95,8 +97,7 @@ function enableValidation() {
 const formProfileValidator = new FormValidator(selectors, formElementProfile);
 const formPlaceValidator = new FormValidator(selectors, formElementPlace);
 
-function createCard(link, name) {
-    const data = {title: name, link: link}
+function createCard(data) {
     const cardSelector = '.card-template';
     const card = new Card(data, cardSelector, openZoomPopup);
     const generatedCard = card.generateCard();
@@ -105,14 +106,13 @@ function createCard(link, name) {
 }
 
 function renderCard(link, name) {
-    const createdCard = createCard(link, name)
-    cardsList.prepend(createdCard);
+    const createdCard = createCard({ name: name, link: link });
+    section.addItem(createdCard);
 }
 
 function handleProfileFormSubmit (event) {
     event.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
+    userInfo.setUserInfo(nameInput.value, jobInput.value);
     closePopup(popupProfile);
 
 }
@@ -139,9 +139,7 @@ function setListeners() {
 }
 
 function main() {
-    initialCards.map(function (item) {
-        renderCard(item.link, item.name);
-    });
+    section.renderItems();
     setListeners();
     enableValidation();
 }

@@ -1,6 +1,6 @@
 export default class Card {
     constructor(data, cardSelector, openZoomPopup) {
-        this._title = data.title;
+        this._title = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
         this._openZoomPopup = openZoomPopup;
