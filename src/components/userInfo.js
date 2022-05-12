@@ -1,5 +1,5 @@
 export default class UserInfo {
-    constructor(profileTitleSelector, profileSubTitleSelector) {
+    constructor({ profileTitleSelector, profileSubTitleSelector }) {
         this._profileTitleElement = document.querySelector(profileTitleSelector);
         this._profileSubTitleElement = document.querySelector(profileSubTitleSelector);
     }
@@ -10,7 +10,7 @@ export default class UserInfo {
         }
     }
 
-    setUserInfo = (profileTitle, profileSubTitle) => {
+    setUserInfo = ({ profileTitle, profileSubTitle }) => {
         this._profileTitleElement.textContent = profileTitle;
         this._profileSubTitleElement.textContent = profileSubTitle;
     }

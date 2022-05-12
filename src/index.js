@@ -1,8 +1,9 @@
-import Card from './card.js'
+import './pages/index.css';
+import Card from './components/card.js';
 
-import FormValidator from "./formValidator.js";
+import FormValidator from "./components/formValidator.js";
 import Section from "./components/section.js";
-import UserInfo from "./userInfo.js";
+import UserInfo from "./components/userInfo.js";
 import PopupWithImage from "./components/popupWithImage.js";
 import PopupWithForm from "./components/popupWithForm.js";
 
@@ -33,7 +34,7 @@ const initialCards = [
     }
 ];
 const section = new Section({ items: initialCards, renderer: createCard }, '.elements__list');
-const userInfo = new UserInfo('.profile__title', '.profile__subtitle');
+const userInfo = new UserInfo({ profileTitleSelector: '.profile__title', profileSubTitleSelector: '.profile__subtitle' });
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
 popupWithImage.setEventListeners();
 const popupPlace = new PopupWithForm('.popup_type_place', submitPlaceForm);
@@ -101,7 +102,7 @@ function renderCard(link, name) {
 }
 
 function submitProfileForm (popupData) {
-    userInfo.setUserInfo(popupData.name_profile, popupData.about_profile);
+    userInfo.setUserInfo({ profileTitle: popupData.name_profile, profileSubTitle: popupData.about_profile });
     popupProfile.close();
 }
 
