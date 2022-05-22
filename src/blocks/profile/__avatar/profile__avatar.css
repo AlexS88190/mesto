@@ -3,4 +3,15 @@
     height: 120px;
     border-radius: 50%;
     grid-area: avatar;
+    /*background-color: rgba(0, 0, 0, 0.8);    */
+    transition: opacity ease-out 0.5s;
+}
+
+.profile__avatar:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.profile__avatar:hover .profile__avatar-button {
+    display: inline;
 }

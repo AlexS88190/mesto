@@ -1,0 +1,10 @@
+.profile__avatar-button {
+    display: none;
+    position: absolute;
+    left: 0;
+    padding: 0;
+    border: 0;
+    width: 120px;
+    height: 120px;
+    background: rgba(255,255,255,0) url("../../../images/edit_avatar.svg") center no-repeat;
+}

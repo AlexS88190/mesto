@@ -15,7 +15,10 @@
       </header>
       <main class="main">
         <section class="profile">
-          <img src="<%=require('./images/avatar.jpg')%>" alt="аватар" class="profile__avatar">
+          <div class="profile__avatar-container">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="аватар" class="profile__avatar">
+            <button class="profile__avatar-button" type="button" aria-label="редактировать аватар"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Felix Baumgartner</h1>
             <button class="profile__edit-button" type="button" aria-label="редактировать профиль"></button>
@@ -64,13 +67,34 @@
         <figcaption class="popup__zoom-title"></figcaption>
       </figure>
     </div>
+    <div class="popup popup_type_update">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_profile" type="button" aria-label="закрыть"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form popup__form_update" name="update" novalidate>
+          <input id="link-input-avatar" class="popup__input popup__input_type_link" type="url" placeholder="Ссылка на аватар" name="link" required>
+          <span class="link-input-error popup__input-error"></span>
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_remove">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_profile" type="button" aria-label="закрыть"></button>
+        <h2 class="popup__title popup__title_delete">Вы уверены?</h2>
+        <button class="popup__save-button popup__save-button_delete" type="button">Да</button>
+      </div>
+    </div>
     <template class="card-template">
       <li class="elements__item">
         <img class="elements__image" src="#" alt="#">
         <button class="elements__trash"></button>
         <div class="elements__content">
           <h2 class="elements__title"></h2>
-          <button class="elements__like-button" type="button" aria-label="нравится"></button>
+          <div class="elements__like-container">
+            <button class="elements__like-button" type="button" aria-label="нравится"></button>
+            <p class="elements__like-counter"></p>
+          </div>
         </div>
       </li>
     </template>
