@@ -6,6 +6,7 @@ import Section from "./components/section.js";
 import UserInfo from "./components/userInfo.js";
 import PopupWithImage from "./components/popupWithImage.js";
 import PopupWithForm from "./components/popupWithForm.js";
+import Api from "./utils/API.js";
 
 const initialCards = [
     {
@@ -34,20 +35,25 @@ const initialCards = [
     }
 ];
 const section = new Section({ items: initialCards, renderer: createCard }, '.elements__list');
-const userInfo = new UserInfo({ profileTitleSelector: '.profile__title', profileSubTitleSelector: '.profile__subtitle' });
+const userInfo = new UserInfo({ profileTitleSelector: '.profile__title', profileSubTitleSelector: '.profile__subtitle', profileAvatarSelector: '.profile__avatar' });
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
 popupWithImage.setEventListeners();
 const popupPlace = new PopupWithForm('.popup_type_place', submitPlaceForm);
 popupPlace.setEventListeners();
 const popupProfile = new PopupWithForm('.popup_type_profile', submitProfileForm);
 popupProfile.setEventListeners();
+const popupEditAvatar = new PopupWithForm('.popup_type_update', submitEditAvatar);
+popupEditAvatar.setEventListeners();
+const api = new Api();
 
 const popupProfileElement = document.querySelector('.popup_type_profile');
 const popupPlaceElement = document.querySelector('.popup_type_place');
+const popupEditAvatarElement = document.querySelector('.popup_type_update');
 const formElementProfile = popupProfileElement.querySelector('.popup__form_profile');
 const nameInput = formElementProfile.querySelector('.popup__input_type_name');
 const jobInput = formElementProfile.querySelector('.popup__input_type_about');
 const formElementPlace = popupPlaceElement.querySelector('.popup__form_place');
+const formElementEditAvatar = popupEditAvatarElement.querySelector('.popup__form_update');
 
 const selectors = {
     formSelector: '.popup__form',
@@ -60,7 +66,7 @@ const selectors = {
 
 const popupEditButton = document.querySelector('.profile__edit-button');
 const popupAddButton = document.querySelector('.profile__add-button');
-
+const popupEditAvatarButton = document.querySelector('.profile__avatar-button');
 
 function openProfilePopup(event) {
     const userInfoData = userInfo.getUserInfo();
@@ -80,13 +86,21 @@ function openZoomPopup(text, link) {
     popupWithImage.open(text, link)
 }
 
+function openEditAvatar() {
+    console.log('openEditAvatar')
+    formEditAvatarValidator.toggleButtonState();
+    popupEditAvatar.open()
+}
+
 function enableValidation() {
     formProfileValidator.enableValidation();
     formPlaceValidator.enableValidation();
+    formEditAvatarValidator.enableValidation()
 }
 
 const formProfileValidator = new FormValidator(selectors, formElementProfile);
 const formPlaceValidator = new FormValidator(selectors, formElementPlace);
+const formEditAvatarValidator = new FormValidator(selectors, formElementEditAvatar);
 
 function createCard(data) {
     const cardSelector = '.card-template';
@@ -102,7 +116,9 @@ function renderCard(link, name) {
 }
 
 function submitProfileForm (popupData) {
-    userInfo.setUserInfo({ profileTitle: popupData.name_profile, profileSubTitle: popupData.about_profile });
+    api.updateProfileInfo(popupData.name_profile, popupData.about_profile).then(() => {
+        userInfo.setUserInfo({ profileTitle: popupData.name_profile, profileSubTitle: popupData.about_profile });
+    })
     popupProfile.close();
 }
 
@@ -114,9 +130,15 @@ function submitPlaceForm(popupData) {
 
 }
 
+function submitEditAvatar(popupData) {
+    console.log(popupData)
+    popupEditAvatar.close()
+}
+
 function setListeners() {
     popupEditButton.addEventListener('click', openProfilePopup);
     popupAddButton.addEventListener('click', openPlacePopup);
+    popupEditAvatarButton.addEventListener('click', openEditAvatar);
 }
 
 function main() {
@@ -124,5 +146,14 @@ function main() {
     setListeners();
     enableValidation();
 }
+
+
+api.getProfileInfo().then(res => {
+    console.log(res)
+ userInfo.setUserInfo({ profileTitle: res.name, profileSubTitle: res.about })
+ userInfo.setAvatar(res.avatar);
+})
+
+
 
 main();
