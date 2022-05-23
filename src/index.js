@@ -131,7 +131,9 @@ function submitPlaceForm(popupData) {
 }
 
 function submitEditAvatar(popupData) {
-    console.log(popupData)
+    api.updateAvatar(popupData.link).then(() => {
+        userInfo.setAvatar(popupData.link);
+    })
     popupEditAvatar.close()
 }
 
