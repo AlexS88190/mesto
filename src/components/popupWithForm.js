@@ -31,4 +31,8 @@ export default class PopupWithForm extends Popup {
         this._form.reset();
     }
 
+    setSubmitCallBack(submitCallback) {
+        this._submitCallback = submitCallback;
+    }
+
 }

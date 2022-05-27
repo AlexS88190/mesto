@@ -20,11 +20,11 @@
             <button class="profile__avatar-button" type="button" aria-label="редактировать аватар"></button>
           </div>
           <div class="profile__info">
-            <h1 class="profile__title">Felix Baumgartner</h1>
+            <h1 class="profile__title"></h1>
             <button class="profile__edit-button" type="button" aria-label="редактировать профиль"></button>
           </div>
           <button class="profile__add-button" type="button" aria-label="добавить"></button>
-          <p class="profile__subtitle">Red Bull Stratos</p>
+          <p class="profile__subtitle"></p>
         </section>
         <section class="elements">
           <ul class="elements__list"></ul>
@@ -82,7 +82,9 @@
       <div class="popup__container">
         <button class="popup__close-button popup__close-button_profile" type="button" aria-label="закрыть"></button>
         <h2 class="popup__title popup__title_delete">Вы уверены?</h2>
-        <button class="popup__save-button popup__save-button_delete" type="button">Да</button>
+        <form class="popup__form popup__form_card-remove" name="update" novalidate>
+          <button class="popup__save-button popup__save-button_remove" type="submit">Да</button>
+        </form>
       </div>
     </div>
     <template class="card-template">

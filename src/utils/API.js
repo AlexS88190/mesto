@@ -50,6 +50,13 @@ export default class Api {
         }));
     }
 
+    deleteCard = (cardId) => {
+        return this._addHandlers(fetch(`${this._baseUrl}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers
+        }));
+    }
+
     like = (cardId) => {
         console.log(cardId)
         return this._addHandlers(fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
@@ -76,7 +83,5 @@ export default class Api {
             })
             .catch(error => console.log(error));
     }
-
-
 
 }

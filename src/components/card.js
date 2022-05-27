@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(api, profileId, data, cardSelector, openZoomPopup) {
+    constructor(api, profileId, data, cardSelector, openZoomPopup, openRemovePopup) {
         this._api = api;
         this._profileId = profileId;
         this._id = data._id;
@@ -7,8 +7,10 @@ export default class Card {
         this._link = data.link;
         this._likes = data.likes;
         this._likeCounter = data.likes.length;
+        this._ownerId = data.owner._id;
         this._cardSelector = cardSelector;
         this._openZoomPopup = openZoomPopup;
+        this._openRemovePopup = openRemovePopup;
         this._likeButtonActiveClass = 'elements__like-button_active'
     }
 
@@ -32,13 +34,20 @@ export default class Card {
         if (this._likes.find(item => item._id === this._profileId)) {
             this._likeButton.classList.add('elements__like-button_active');
         }
+        if (this._profileId !== this._ownerId) {
+            this._trashButton.remove();
+        }
 
         return this._cardElement
     }
 
     _removeCard = (event) => {
-        this._cardElement.remove();
-        this._destroyElements();
+        this._openRemovePopup(() => {
+            return this._api.deleteCard(this._id).then((res) => {
+                this._cardElement.remove();
+                this._destroyElements();
+            })
+        })
     }
 
     _destroyElements = () => {
