@@ -9,31 +9,32 @@ import PopupWithForm from "./components/popupWithForm.js";
 import Api from "./utils/API.js";
 
 const initialCards = [
-    {
-        name: 'Palm Jumeirah, Dubai',
-        link: 'https://lilastourism.com/wp-content/uploads/2017/11/skydive-dubai1.jpg'
-    },
-    {
-        name: 'Waialua, Hawaii',
-        link: 'https://live.staticflickr.com/5131/5447473435_2567ba3776_b.jpg'
-    },
-    {
-        name: 'Interlaken, Switzerland',
-        link: 'https://cantina-caverna.ch/wp-content/uploads/2017/08/visit_interlaken_lungern_view.jpg'
-    },
-    {
-        name: 'Majlis al Jinn, Oman',
-        link: 'https://www.getlostmagazine.com/wp-content/uploads/2016/05/GL35-OMAN-SS-JINN_CAVE-1500x900.jpg'
-    },
-    {
-        name: 'Stratosphere',
-        link: 'https://avatars.mds.yandex.net/get-zen_doc/1900011/pub_5dd9914ca4655250ff59d1c3_5debb1325d636200ad8366c6/scale_1200'
-    },
-    {
-        name: 'Chamonix, Switzerland',
-        link: 'https://www.orangesmile.com/common/img_cities_original/chamonix-mont-blanc--1418045-2.jpg'
-    }
+    // {
+    //     name: 'Palm Jumeirah, Dubai',
+    //     link: 'https://lilastourism.com/wp-content/uploads/2017/11/skydive-dubai1.jpg'
+    // },
+    // {
+    //     name: 'Waialua, Hawaii',
+    //     link: 'https://live.staticflickr.com/5131/5447473435_2567ba3776_b.jpg'
+    // },
+    // {
+    //     name: 'Interlaken, Switzerland',
+    //     link: 'https://cantina-caverna.ch/wp-content/uploads/2017/08/visit_interlaken_lungern_view.jpg'
+    // },
+    // {
+    //     name: 'Majlis al Jinn, Oman',
+    //     link: 'https://www.getlostmagazine.com/wp-content/uploads/2016/05/GL35-OMAN-SS-JINN_CAVE-1500x900.jpg'
+    // },
+    // {
+    //     name: 'Stratosphere',
+    //     link: 'https://avatars.mds.yandex.net/get-zen_doc/1900011/pub_5dd9914ca4655250ff59d1c3_5debb1325d636200ad8366c6/scale_1200'
+    // },
+    // {
+    //     name: 'Chamonix, Switzerland',
+    //     link: 'https://www.orangesmile.com/common/img_cities_original/chamonix-mont-blanc--1418045-2.jpg'
+    // }
 ];
+let profileInfo = {};
 const section = new Section({ items: initialCards, renderer: createCard }, '.elements__list');
 const userInfo = new UserInfo({ profileTitleSelector: '.profile__title', profileSubTitleSelector: '.profile__subtitle', profileAvatarSelector: '.profile__avatar' });
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
@@ -44,7 +45,7 @@ const popupProfile = new PopupWithForm('.popup_type_profile', submitProfileForm)
 popupProfile.setEventListeners();
 const popupEditAvatar = new PopupWithForm('.popup_type_update', submitEditAvatar);
 popupEditAvatar.setEventListeners();
-const api = new Api();
+const api = new Api('cohort-41', 'c5ad47cd-94e1-4e0d-ba61-6865eeedf90c', 'https://mesto.nomoreparties.co/v1');
 
 const popupProfileElement = document.querySelector('.popup_type_profile');
 const popupPlaceElement = document.querySelector('.popup_type_place');
@@ -104,7 +105,7 @@ const formEditAvatarValidator = new FormValidator(selectors, formElementEditAvat
 
 function createCard(data) {
     const cardSelector = '.card-template';
-    const card = new Card(data, cardSelector, openZoomPopup);
+    const card = new Card(api, profileInfo._id, data, cardSelector, openZoomPopup);
     const generatedCard = card.generateCard();
 
     return generatedCard
@@ -125,9 +126,10 @@ function submitProfileForm (popupData) {
 function submitPlaceForm(popupData) {
     const nameCardInput = popupData.place;
     const linkCardInput = popupData.link;
-    renderCard(linkCardInput, nameCardInput);
-    popupPlace.close();
-
+    api.addCard(nameCardInput, linkCardInput).then(() => {
+        renderCard(linkCardInput, nameCardInput);
+        popupPlace.close();
+    })
 }
 
 function submitEditAvatar(popupData) {
@@ -143,19 +145,30 @@ function setListeners() {
     popupEditAvatarButton.addEventListener('click', openEditAvatar);
 }
 
-function main() {
-    section.renderItems();
-    setListeners();
-    enableValidation();
+function updateProfileInfo() {
+    return api.getProfileInfo().then(res => {
+        userInfo.setUserInfo({ profileTitle: res.name, profileSubTitle: res.about })
+        userInfo.setAvatar(res.avatar);
+        return res
+    });
 }
 
+function updateCards() {
+    api.getCards().then((res) => {
+        console.log(res);
+        section.setItems(res);
+        section.renderItems();
+    })
+}
 
-api.getProfileInfo().then(res => {
-    console.log(res)
- userInfo.setUserInfo({ profileTitle: res.name, profileSubTitle: res.about })
- userInfo.setAvatar(res.avatar);
-})
-
-
+function main() {
+    updateProfileInfo()
+        .then((res) => {
+            profileInfo = res;
+            updateCards();
+            setListeners();
+            enableValidation();
+        })
+}
 
 main();

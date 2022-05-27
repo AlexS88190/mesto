@@ -1,57 +1,72 @@
 export default class Api {
-    constructor() {
+    constructor(cohortId, authorizationToken, baseUrl) {
+        this._headers = {
+            authorization: authorizationToken,
+            'Content-Type': 'application/json'
+        }
+        this._baseUrl = `${baseUrl}/${cohortId}`
     }
     getProfileInfo = () => {
-        return fetch('https://nomoreparties.co/v1/cohort-41/users/me', {
-            headers: {
-                authorization: 'c5ad47cd-94e1-4e0d-ba61-6865eeedf90c'
-            }
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
-
-            .catch(error => console.log(error))
+        return this._addHandlers(fetch(`${this._baseUrl}/users/me`, {
+            headers: this._headers
+        }));
     }
 
     updateProfileInfo = (name, about) => {
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-41/users/me', {
+        return this._addHandlers(fetch( `${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-                authorization: 'c5ad47cd-94e1-4e0d-ba61-6865eeedf90c',
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 name: name,
                 about: about
             })
-        })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
-
-            .catch(error => console.log(error))
+        }));
     }
 
     updateAvatar = (link) => {
-        return fetch('https://mesto.nomoreparties.co/v1/cohort-41/users/me/avatar', {
+        return this._addHandlers(fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            headers: {
-                authorization: 'c5ad47cd-94e1-4e0d-ba61-6865eeedf90c',
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 avatar: link
             })
-        })
+        }));
+    }
+
+    getCards = () => {
+        return this._addHandlers(fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers
+        }));
+    }
+
+    addCard = (name, link) => {
+        return this._addHandlers(fetch(`${this._baseUrl}/cards`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: name,
+                link: link
+            })
+        }));
+    }
+
+    like = (cardId) => {
+        console.log(cardId)
+        return this._addHandlers(fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: this._headers
+        }));
+    }
+
+    dislike = (cardId) => {
+        return this._addHandlers(fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: this._headers
+        }));
+    }
+
+    _addHandlers(promise) {
+        return promise
             .then(res => {
                 if (res.ok) {
                     return res.json();
@@ -59,7 +74,9 @@ export default class Api {
                     return Promise.reject(`Ошибка: ${res.status}`);
                 }
             })
-
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
     }
+
+
+
 }
