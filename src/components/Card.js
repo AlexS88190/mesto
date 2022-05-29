@@ -1,5 +1,5 @@
 export default class Card {
-    constructor(profileId, data, cardSelector, openZoomPopup, openRemovePopup, likeCardCallback, dislikeCardCallback) {
+    constructor({profileId, data, cardSelector, openZoomPopup, removeButtonClickCallback, likeCardCallback, dislikeCardCallback}) {
         this._profileId = profileId;
         this.id = data._id;
         this._title = data.name;
@@ -8,7 +8,7 @@ export default class Card {
         this._ownerId = data.owner._id;
         this._cardSelector = cardSelector;
         this._openZoomPopup = openZoomPopup;
-        this._openRemovePopup = openRemovePopup;
+        this._removeButtonClickCallback = removeButtonClickCallback;
         this._likeButtonActiveClass = 'elements__like-button_active';
         this._likeCardCallback = likeCardCallback;
         this._dislikeCardCallback = dislikeCardCallback
@@ -48,8 +48,8 @@ export default class Card {
         this._cardElement = null;
     }
 
-    _removeCard = (event) => {
-        this._openRemovePopup(this);
+    _handleRemoveButtonClick = (event) => {
+        this._removeButtonClickCallback(this);
     }
 
     _initElements = () => {
@@ -75,7 +75,7 @@ export default class Card {
     }
 
     _addEventListener = () => {
-        this._trashButton.addEventListener('click', this._removeCard);
+        this._trashButton.addEventListener('click', this._handleRemoveButtonClick);
         this._likeButton.addEventListener('click', this._likeCard);
         this._linkCard.addEventListener('click', this._handleOpenZoomPopup);
     }

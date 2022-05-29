@@ -18,17 +18,17 @@ import {
     creationText,
     yesText,
     removingText
-} from './utils/constants.js'
-import './pages/index.css';
-import Card from './pages/card.js';
+} from '../utils/constants.js'
+import './index.css';
+import Card from '../components/Card.js';
 
-import FormValidator from "./components/formValidator.js";
-import Section from "./components/section.js";
-import UserInfo from "./components/userInfo.js";
-import PopupWithImage from "./components/popupWithImage.js";
-import PopupWithForm from "./components/popupWithForm.js";
-import PopupSubmit from "./components/popupSubmit.js";
-import Api from "./components/API.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupSubmit from "../components/PopupSubmit.js";
+import Api from "../components/API.js";
 
 const initialCards = [];
 let profileInfo = {};
@@ -60,20 +60,9 @@ function openPlacePopup(event) {
     popupPlace.open();
 }
 
-function openZoomPopup(text, link) {
-    popupWithImage.open(text, link)
-}
-
 function openEditAvatar() {
     formEditAvatarValidator.toggleButtonState();
     popupEditAvatar.open();
-}
-
-function openRemovePopup(card) {
-    popupRemoveCard.setSubmitAction(() => {
-        submitCardRemove(card)
-    })
-    popupRemoveCard.open();
 }
 
 function enableValidation() {
@@ -88,7 +77,32 @@ const formEditAvatarValidator = new FormValidator(selectors, formElementEditAvat
 
 function createCard(data) {
     const cardSelector = '.card-template';
-    const card = new Card(profileInfo._id, data, cardSelector, openZoomPopup, openRemovePopup, handleLikeCard, handleDislikeCard);
+
+    const card = new Card({
+        profileId: profileInfo._id,
+        data: data,
+        cardSelector: cardSelector,
+        openZoomPopup: (text, link) => {
+            popupWithImage.open(text, link)
+        },
+        removeButtonClickCallback: (card) => {
+            popupRemoveCard.setSubmitAction(() => {
+                submitCardRemove(card)
+            })
+            popupRemoveCard.open();
+        },
+        likeCardCallback: (card) => {
+            api.like(card.id).then((data) => {
+                card.setLikesInfo(data);
+            }).catch(error => console.log(error));
+        },
+        dislikeCardCallback: (card) => {
+            api.dislike(card.id).then((data) => {
+                card.setLikesInfo(data);
+            }).catch(error => console.log(error));
+        }
+    });
+
     const generatedCard = card.generateCard();
 
     return generatedCard
@@ -145,18 +159,6 @@ function submitCardRemove(card) {
         .finally(() => {
             popupRemoveCard.renderLoading(false);
         })
-}
-
-function handleLikeCard(card) {
-    api.like(card.id).then((data) => {
-        card.setLikesInfo(data);
-    }).catch(error => console.log(error));
-}
-
-function handleDislikeCard(card) {
-    api.dislike(card.id).then((data) => {
-        card.setLikesInfo(data);
-    }).catch(error => console.log(error));
 }
 
 function setListeners() {
