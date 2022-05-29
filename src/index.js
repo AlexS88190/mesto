@@ -20,7 +20,7 @@ import {
     removingText
 } from './utils/constants.js'
 import './pages/index.css';
-import Card from './components/card.js';
+import Card from './pages/card.js';
 
 import FormValidator from "./components/formValidator.js";
 import Section from "./components/section.js";
@@ -36,13 +36,13 @@ const section = new Section({ items: initialCards, renderer: createCard }, '.ele
 const userInfo = new UserInfo({ profileTitleSelector: '.profile__title', profileSubTitleSelector: '.profile__subtitle', profileAvatarSelector: '.profile__avatar' });
 const popupWithImage = new PopupWithImage('.popup_type_zoom');
 popupWithImage.setEventListeners();
-const popupPlace = new PopupWithForm('.popup_type_place', submitPlaceForm);
+const popupPlace = new PopupWithForm('.popup_type_place', submitPlaceForm, { loading: creationText, loaded: createText });
 popupPlace.setEventListeners();
-const popupProfile = new PopupWithForm('.popup_type_profile', submitProfileForm);
+const popupProfile = new PopupWithForm('.popup_type_profile', submitProfileForm, { loading: savingText, loaded: saveText });
 popupProfile.setEventListeners();
-const popupEditAvatar = new PopupWithForm('.popup_type_update', submitEditAvatar);
+const popupEditAvatar = new PopupWithForm('.popup_type_update', submitEditAvatar, { loading: savingText, loaded: saveText });
 popupEditAvatar.setEventListeners();
-const popupRemoveCard = new PopupSubmit('.popup_type_remove', submitCardRemove);
+const popupRemoveCard = new PopupSubmit('.popup_type_remove', submitCardRemove, { loading: removingText, loaded: yesText });
 popupRemoveCard.setEventListeners();
 const api = new Api('cohort-41', 'c5ad47cd-94e1-4e0d-ba61-6865eeedf90c', 'https://mesto.nomoreparties.co/v1');
 
@@ -70,7 +70,10 @@ function openEditAvatar() {
 }
 
 function openRemovePopup(card) {
-    popupRemoveCard.open(card);
+    popupRemoveCard.setSubmitAction(() => {
+        submitCardRemove(card)
+    })
+    popupRemoveCard.open();
 }
 
 function enableValidation() {
@@ -106,12 +109,8 @@ function submitProfileForm (popupData) {
             console.log(error);
         })
         .finally(() => {
-            saveProfileButton.textContent = saveText;
-            saveProfileButton.removeAttribute('disabled');
+            popupProfile.renderLoading(false);
         })
-
-    saveProfileButton.textContent = savingText;
-    saveProfileButton.setAttribute('disabled', 'disabled');
 }
 
 function submitPlaceForm(popupData) {
@@ -124,11 +123,8 @@ function submitPlaceForm(popupData) {
     })
         .catch(error => console.log(error))
         .finally(() => {
-            addCardButton.textContent = createText;
-            addCardButton.removeAttribute('disabled');
+            popupPlace.renderLoading(false);
     })
-    addCardButton.textContent = creationText;
-    addCardButton.setAttribute('disabled', 'disabled');
 }
 
 function submitEditAvatar(popupData) {
@@ -137,11 +133,8 @@ function submitEditAvatar(popupData) {
         popupEditAvatar.close()
     }).catch(error => console.log(error))
         .finally(() => {
-            saveAvatarButton.textContent = saveText;
-            saveAvatarButton.removeAttribute('disabled');
+            popupEditAvatar.renderLoading(false);
         })
-    saveAvatarButton.textContent = savingText;
-    saveAvatarButton.setAttribute('disabled', 'disabled');
 }
 
 function submitCardRemove(card) {
@@ -150,11 +143,8 @@ function submitCardRemove(card) {
         popupRemoveCard.close();
     }).catch(error => console.log(error))
         .finally(() => {
-            removeCardButton.textContent = yesText;
-            removeCardButton.removeAttribute('disabled');
+            popupRemoveCard.renderLoading(false);
         })
-    removeCardButton.textContent = removingText;
-    removeCardButton.setAttribute('disabled', 'disabled');
 }
 
 function handleLikeCard(card) {
